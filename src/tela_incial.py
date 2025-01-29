@@ -43,8 +43,8 @@ def menu():
 ''')
     
 def voltar_inicio():
+    input('\nPressione qualquer tecla para voltar para o menu inicial: ')
     os.system('cls')
-    input('Pressione qualquer tecla para voltar para o menu inicial: ')
     sleep(1)
     print('.')
     sleep(1)
@@ -54,6 +54,7 @@ def voltar_inicio():
     sleep(1)
 
 def exibir_subtitulo(texto):
+    os.system('cls')
     linha = '-'*(len(texto))
     print(linha)
     print(texto)
@@ -63,7 +64,7 @@ def exibir_subtitulo(texto):
 def adicionar_despesa():
     lista_despesa = carregar_despesas()
     exibir_subtitulo('Adicionando Despesa')
-    print('obs: sem letras minúsculas, acentos e caracteres especiais')
+    print('obs: sem letras maiúsculas, acentos e caracteres especiais')
     categoria = input('Qual é a categoria da sua despesa? - ')
     data = (input('Qual a data da despesa? (ex: 00/00/0000) - '))
     valor = float(input('Qual o valor da despesa? - '))
@@ -71,7 +72,8 @@ def adicionar_despesa():
     lista_despesa.append({'categoria': categoria, 'data': data, 'valor': valor})
     salvar_despesas(lista_despesa)
 
-    print('Despesa adicionada com sucesso!')
+    print('\nDespesa adicionada com sucesso!')
+    voltar_inicio()
     
 
 def buscar_despesa():
@@ -85,17 +87,21 @@ def buscar_despesa():
     ]
 
     if busca:
-        print('Despesa --')
+        print('\n')
+        print(f'{'Categoria'.ljust(22)} |{' Data'.ljust(20)}  |{' Valor'.ljust(20)} \n')
         for despesa in busca:
-            print(f'- Categoria: {despesa['categoria']}\n- Data: {despesa['data']}\n- Valor: {despesa['valor']}')
+            print(f"- {despesa['categoria'].ljust(20)} | {despesa['data'].ljust(20)} | {despesa['valor']:.2f}".ljust(20))
     else:
         print('Nenhuma despesa encontrada')
+
+    voltar_inicio()
     
     
 
     
 def tela_inicial():
     while True:
+        menu()
         escolha = int(input('Qual opção você deseja? '))
 
         match escolha:
