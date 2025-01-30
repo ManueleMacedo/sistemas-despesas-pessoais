@@ -96,7 +96,68 @@ def buscar_despesa():
 
     voltar_inicio()
     
+def editar_despesa():
+    lista_despesa = carregar_despesas()
+    exibir_subtitulo('Editar Despesa')
+
+    categoria = input('Qual é a categoria da despesa que deseja editar? - ')
+    data = (input('Qual a data da despesa? (ex: 00/00/0000) - '))
+    valor = float(input('Qual o valor da despesa? - '))
+
+    despesa_encontrada = None
+    for despesa in lista_despesa:
+        if despesa['categoria'] == categoria and despesa['data'] == data and despesa['valor'] == valor:
+            despesa_encontrada = despesa
+            break
+
+    if despesa_encontrada:
+        despesa['categoria'] = input('Digite a nova categoria da despesa: - ')
+        despesa['data'] = input('Digite a nova data da despesa: - ')
+        despesa['valor'] = float(input('Digite o novo valor da despesa: - '))
+       
+        salvar_despesas(lista_despesa)
+        
+        print('Despesa atualizada com sucesso!')
+    else:
+        print('Despesa não encontrada...')
+
+    voltar_inicio()
     
+
+def excluir_despesa():
+    lista_despesa = carregar_despesas()
+    exibir_subtitulo('Excluir Despesa')
+    
+    data = input('Digite a data da despesa que deseja excluir: - ')
+    valor = float(input('Digite o valor da despesa que deseja excluir: - '))
+
+    despesa_encontrada = None
+    for despesa in lista_despesa:
+        if despesa['data'] == data and despesa['valor'] == valor:
+            despesa_encontrada = despesa
+            break
+
+    print('Despesa encontrada: ')
+    print(f'{despesa_encontrada['categoria']} | {despesa_encontrada['data']} | {despesa_encontrada['valor']}')
+
+    if despesa_encontrada:
+        lista_despesa.remove(despesa_encontrada)
+        print('Despesa Excluída com sucesso!')
+        salvar_despesas(lista_despesa)
+    else:
+        print('Despesa não encontrada! ')
+
+    voltar_inicio()
+
+def relatorio_despesas():
+    lista_despesa = carregar_despesas()
+    exibir_subtitulo('Todas as despesas cadastradas')
+
+    print(f'{'Categoria'.ljust(22)} |{' Data'.ljust(20)}  |{' Valor'.ljust(20)} \n')
+    for despesa in lista_despesa:
+        print(f"- {despesa['categoria'].ljust(20)} | {despesa['data'].ljust(20)} | {despesa['valor']:.2f}".ljust(20))
+    
+    voltar_inicio()
 
     
 def tela_inicial():
@@ -110,11 +171,11 @@ def tela_inicial():
             case 2:
                 buscar_despesa()
             case 3:
-                break
+                editar_despesa()
             case 4:
-                break
+                excluir_despesa()
             case 5:
-                break
+                relatorio_despesas()
             case 6:
                 break
             case _:
