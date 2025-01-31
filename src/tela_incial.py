@@ -177,7 +177,9 @@ def tela_inicial():
             case 5:
                 relatorio_despesas()
             case 6:
+                print('Encerrando Sistema.')
                 break
             case _:
-                break
+                print('Opção inválida! Tente novamente')
+                voltar_inicio()
             
